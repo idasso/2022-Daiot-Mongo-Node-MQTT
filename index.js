@@ -18,11 +18,12 @@ require('./storage/database/mongo');
 
 // CORS:
 var corsOptions = {
-  origin: ["https://daiot.com.ar"],
+  //origin: ["https://daiot.com.ar"],
+  origin: ["https://iotsuryon.com.ar"], // Lo dejo configurado para cuando haga el deploy en Cloud.
   optionsSuccessStatus: 200,
   methods: ["GET", "POST", "OPTIONS"],
 };
-app.use(cors());
+app.use(cors());  // Use this option to accept request from outside on my development environment since I'll be testing it (for a start) as a localhost deploy.
 //app.use(cors(corsOptions));
 
 app.use(express.json());
