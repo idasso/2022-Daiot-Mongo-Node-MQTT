@@ -1,5 +1,8 @@
 var mqtt = require('mqtt');
 const config = require("./../config");
+const fs = require('fs');
+const path = require('path');
+const { checkServerIdentity } = require('tls');
 
 const MQTT_ENV = config.services.MQTT;
 
@@ -10,11 +13,15 @@ var options = {
     password: MQTT_ENV.PASSWORD,
     qos: 2,
     port: MQTT_ENV.PORT,
-    clean: true
+    clean: true,
+    key: fs.readFileSync(path.join(__dirname, 'certs', 'client.key')),
+    cert: fs.readFileSync(path.join(__dirname, 'certs', 'client.crt')),
+    ca: fs.readFileSync(path.join(__dirname, 'certs', 'ca.crt')),
+    checkServerIdentity: () => {return null; }, //Desactivar la verificación del nombre de host
 }
 
-const URI = `mqtt://${MQTT_ENV.HOST}`; // Para utilizar sin TLS
-//const URI = `mqtts://${MQTT_ENV.HOST}`; // Utiliza "mqtts" en lugar de "mqtt" para la conexión segura
+//const URI = `mqtt://${MQTT_ENV.HOST}`; // Para utilizar sin TLS
+const URI = `mqtts://${MQTT_ENV.HOST}`; // Utiliza "mqtts" en lugar de "mqtt" para la conexión segura
 console.log("MQTT:" + URI);
 
 
