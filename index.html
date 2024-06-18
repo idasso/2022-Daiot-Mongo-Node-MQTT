@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperatura y Humedad</title>
+</head>
+<body>
+    <h1>Datos del Dispositivo</h1>
+    <p>Dispositivo ID: <span id="dispositivoId">Cargando...</span></p>
+    <p>Nombre: <span id="nombre">Cargando...</span></p>
+    <p>Ubicación: <span id="ubicacion">Cargando...</span></p>
+    <p>Luz 1: <span id="luz1">Cargando...</span></p>
+    <p>Luz 2: <span id="luz2">Cargando...</span></p>
+    <p>Temperatura: <span id="temperatura">Cargando...</span> °C</p>
+    <p>Humedad: <span id="humedad">Cargando...</span> %</p>
+
+    <script>
+        function fetchDeviceData() {
+            var xmlRequest = new XMLHttpRequest();
+            xmlRequest.open("GET", "http://localhost:3000/status", true);
+            xmlRequest.onreadystatechange = function () {
+                if (xmlRequest.readyState === 4 && xmlRequest.status === 200) {
+                    var data = JSON.parse(xmlRequest.responseText);
+                    document.getElementById('dispositivoId').textContent = data.dispositivoId;
+                    document.getElementById('nombre').textContent = data.nombre;
+                    document.getElementById('ubicacion').textContent = data.ubicacion;
+                    document.getElementById('luz1').textContent = data.luz1;
+                    document.getElementById('luz2').textContent = data.luz2;
+                    document.getElementById('temperatura').textContent = data.temperatura;
+                    document.getElementById('humedad').textContent = data.humedad;
+                }
+            };
+            xmlRequest.send();
+        }
+
+        // Llamar a la función al cargar la página
+        window.onload = fetchDeviceData;
+    </script>
+
+</body>
+</html>

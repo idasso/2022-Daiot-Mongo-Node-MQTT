@@ -19,7 +19,7 @@ require('./storage/database/mongo');
 // CORS:
 var corsOptions = {
   //origin: ["https://daiot.com.ar"],
-  origin: ["https://iotsuryon.com.ar"], // Lo dejo configurado para cuando haga el deploy en Cloud.
+  origin: ["https://iotsuryon.com.ar", "http://localhost:8000"], // Lo dejo configurado para cuando haga el deploy en Cloud.
   optionsSuccessStatus: 200,
   methods: ["GET", "POST", "OPTIONS"],
 };
