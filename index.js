@@ -24,8 +24,8 @@ var corsOptions = {
   optionsSuccessStatus: 200,
   methods: ["GET", "POST", "OPTIONS"],
 };
-app.use(cors());  // Use this option to accept request from outside on my development environment since I'll be testing it (for a start) as a localhost deploy.
-//app.use(cors(corsOptions));
+//app.use(cors());  // Use this option to accept request from outside on my development environment since I'll be testing it (for a start) as a localhost deploy.
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

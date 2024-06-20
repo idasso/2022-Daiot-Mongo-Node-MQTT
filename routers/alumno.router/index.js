@@ -1,8 +1,32 @@
+const dispositivo = require("../prueba.router/models/dispositivos");
 const register = (router) => {
   //router.get("/status", (req, resp) => resp.json({ status: 200 }));
-	router.get('/status', (req, res) => {
+
+router.get('/status/:topic/:id', async function (req, res) {
+        topicoElegido = "/"+req.params.topic+"/";
+	parametro = req.params.id;
+	const listado = await dispositivo.find({topic: topicoElegido, dispositivoId: parametro});
+        if (!listado) return res.json({ data: null, error: 'No hay datos en la Base de Datos.' });
+        if (listado) {
+		dispoSelec = listado[0];
+		const deviceData = {
+                        dispositivoId: dispoSelec.dispositivoId,
+                        nombre: dispoSelec.nombre,
+                        ubicacion: dispoSelec.ubicacion,
+                        luz1: dispoSelec.luz1,
+                        luz2: dispoSelec.luz2,
+                        temperatura: dispoSelec.temperatura,
+                        humedad: dispoSelec.humedad
+                };
+//		return res.json({ data: listado, error: null});
+		res.json(deviceData);
+
+	}
+
+    });
+/*	router.get('/status', (req, res) => {
   	// Acá vamos a obtener los datos de temperatura y humedad desde una base de datos.
-  	
+/*
 	  	const buscarDispositivo = dispositivo.findOne({
 		topic: "/daiot",
 		nombre: "Demo-ESP32-C3",
@@ -20,9 +44,9 @@ const register = (router) => {
 			hora: horaMedicion
 	  	};
 	  	res.json(deviceData);
-
+*/
 	// Código para testeo de la conexión desde el frontend
-  		/* const deviceData = {
+  	/*	 const deviceData = {
     			dispositivoId: 23,
     			nombre: "Demo-ESP32-C3",
     			ubicacion: "Francia",
@@ -31,8 +55,8 @@ const register = (router) => {
     			temperatura: 38,
     			humedad: 28
   		};
-  		res.json(deviceData); */
-	});
+  		res.json(deviceData); 
+	});*/
   //listar leds de la db
   router.get("/leds", (req, resp) => resp.json({ status: 200 }));
   return router;
