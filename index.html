@@ -4,21 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temperatura y Humedad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* color celeste claro */
+            color: #333; /* color gris oscuro */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2a9df4; /* color celeste */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        p {
+            background-color: #ffffff; /* color blanco */
+            border: 1px solid #ddd; /* color gris claro */
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin: 10px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        #container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #e0f7fa; /* celeste muy claro */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
-    <h1>Datos del Dispositivo</h1>
-    <p>Dispositivo ID: <span id="dispositivoId">Cargando...</span></p>
-    <p>Nombre: <span id="nombre">Cargando...</span></p>
-    <p>Ubicación: <span id="ubicacion">Cargando...</span></p>
-    <p>Luz 1: <span id="luz1">Cargando...</span></p>
-    <p>Luz 2: <span id="luz2">Cargando...</span></p>
-    <p>Temperatura: <span id="temperatura">Cargando...</span> °C</p>
-    <p>Humedad: <span id="humedad">Cargando...</span> %</p>
+    <div id="container">
+        <h1>Datos del Dispositivo</h1>
+        <p>Dispositivo ID: <span id="dispositivoId">Cargando...</span></p>
+        <p>Nombre: <span id="nombre">Cargando...</span></p>
+        <p>Ubicación: <span id="ubicacion">Cargando...</span></p>
+        <p>Luz 1: <span id="luz1">Cargando...</span></p>
+        <p>Luz 2: <span id="luz2">Cargando...</span></p>
+        <p>Temperatura: <span id="temperatura">Cargando...</span> °C</p>
+        <p>Humedad: <span id="humedad">Cargando...</span> %</p>
+    </div>
 
     <script>
         function fetchDeviceData() {
             var xmlRequest = new XMLHttpRequest();
-            xmlRequest.open("GET", "http://localhost:3000/status", true);
+            xmlRequest.open("GET", "http://iotsuryon.com.ar:3000/status/test-msg/23", true);
             xmlRequest.onreadystatechange = function () {
                 if (xmlRequest.readyState === 4 && xmlRequest.status === 200) {
                     var data = JSON.parse(xmlRequest.responseText);
@@ -33,10 +72,8 @@
             };
             xmlRequest.send();
         }
-
         // Llamar a la función al cargar la página
         window.onload = fetchDeviceData;
     </script>
-
 </body>
 </html>
